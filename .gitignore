@@ -3,8 +3,6 @@
 # Visual Studio Code Stuff
 cpanel-db-admin*
 
-/src/API/config.php
-
 # dependencies
 /node_modules
 /.pnp
