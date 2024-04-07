@@ -9,6 +9,8 @@
 
 Bugs 🪲. Please expect it since this project is my first project to go with React.js instead of full PHP.
 
+📎Any reporting or recommendation. Please contact me at [Amirul-Hub.com](https://amirul-hub.com/#contact)
+
 ## Tech Stack 🧑‍💻
 | Technology | Language |
 | -------- | -------- |
