@@ -69,8 +69,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-
-export default function PersistentDrawerLeft(props) {
+export default function PersistentDrawerLeft({goBack, ...props}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const {type} = props
@@ -81,6 +80,20 @@ export default function PersistentDrawerLeft(props) {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleSidebarBottom = (type) => {
+    switch (type) {
+      case 'Manage User':
+        break;
+      case 'Log Out':
+        goBack();
+        break;
+    }
+  };
+
+  const handleSidebarUp = (type) => {
+
   };
 
   // Icon for the sidebar
@@ -128,7 +141,7 @@ export default function PersistentDrawerLeft(props) {
         <List>
           {['Home', 'Manage Database'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => handleSidebarUp(text)}>
                 <ListItemIcon>
                   {icons[index]}
                 </ListItemIcon>
@@ -141,7 +154,7 @@ export default function PersistentDrawerLeft(props) {
         <List>
           {['Manage User', 'Log Out'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => handleSidebarBottom(text)}>
               <ListItemIcon>
                   {icons2[index]}
                 </ListItemIcon>

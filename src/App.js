@@ -1,8 +1,9 @@
 import './App.css';
 import React, {useState} from 'react';
-import Table from './component/DatabaseTable.js'
 import Sidebar from './component/Sidebar.js'
 import Login from './component/Login.js';
+import Admin from './component/Admin.js';
+import User from './component/User.js';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'
@@ -15,15 +16,28 @@ const darkTheme = createTheme({
 
 function App() {
 
-  const [switching, setSwitching] = useState('admin');
+  const [switching, setSwitching] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLoginSuccess = () => {
+  const handleAdmin = () => {
     setIsLoggedIn(true);
+    setSwitching('admin');
+    console.log('toggled');
+  };
+  
+  const handleUser = () => {
+    setIsLoggedIn(true);
+    setSwitching('user');
+  };
+ 
+  const handleFail = () => {
+    setIsLoggedIn(false);
+    setSwitching('failed');
   };
 
-  const handleLoginFailure = () => {
+  const handleLogout = () => {
     setIsLoggedIn(false);
+    setSwitching('');
   };
 
   return (
@@ -31,12 +45,11 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline/>
         {isLoggedIn ? (
-          <Sidebar type={switching}>
-            {/* <UserInterface /> */}
-            {switching === 'admin' ? <Table /> : "User Interface will replace here" }
+          <Sidebar goBack={handleLogout} type={switching} >
+            {switching === 'admin' ? <Admin /> : <User/> }
           </Sidebar>
         ) : (
-          <Login onLoginSuccess={handleLoginSuccess} onLoginFailure={handleLoginFailure} />
+          <Login adminLogin={handleAdmin} userLogin={handleUser} failed={handleFail}/>
         )}
       </ThemeProvider>
     </div>
