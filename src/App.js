@@ -18,11 +18,16 @@ function App() {
 
   const [switching, setSwitching] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const handlePage = (pageReceive) => {
+    setPage(pageReceive);
+  }
 
   const handleAdmin = () => {
     setIsLoggedIn(true);
     setSwitching('admin');
-    console.log('toggled');
+    setPage(1);
   };
   
   const handleUser = () => {
@@ -45,8 +50,8 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline/>
         {isLoggedIn ? (
-          <Sidebar goBack={handleLogout} type={switching} >
-            {switching === 'admin' ? <Admin /> : <User/> }
+          <Sidebar goBack={handleLogout} togglePage={handlePage} type={switching} >
+            {switching === 'admin' ? <Admin getPage={page} /> : <User/> }
           </Sidebar>
         ) : (
           <Login adminLogin={handleAdmin} userLogin={handleUser} failed={handleFail}/>
